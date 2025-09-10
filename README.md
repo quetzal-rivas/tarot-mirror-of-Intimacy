@@ -1,4 +1,4 @@
-# Firebase Studio
+# Tarot Mirror of Intimacy
 
 This is a NextJS starter in Firebase Studio.
 

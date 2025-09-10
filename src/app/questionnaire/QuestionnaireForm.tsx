@@ -52,10 +52,11 @@ export function QuestionnaireForm({ sections }: { sections: Section[] }) {
 
   const onSubmit = (data: QuestionnaireFormValues) => {
     setIsPending(true);
-    // For now, we just proceed to the next step.
-    // In the future, you might want to save this data.
-    console.log(data);
-    router.push('/prompts');
+    const params = new URLSearchParams();
+    for (const [key, value] of Object.entries(data)) {
+        params.append(key, value);
+    }
+    router.push(`/prompts?${params.toString()}`);
   };
   
   let questionCounter = 0;

@@ -1,10 +1,11 @@
 import { providePersonalizedFeedback } from '@/ai/flows/provide-personalized-feedback';
 import { recommendIntimacyCue } from '@/ai/flows/recommend-intimacy-cue';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Lightbulb, Sparkles, Heart, RefreshCw } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Lightbulb, Sparkles, Heart, RefreshCw, BarChart3 } from 'lucide-react';
 import Link from 'next/link';
 import { Suspense } from 'react';
+import { QuestionnaireResults } from './QuestionnaireResults';
 
 type ResultsPageProps = {
   searchParams: { [key: string]: string | string[] | undefined };
@@ -13,6 +14,7 @@ type ResultsPageProps = {
 export default function ResultsPage({ searchParams }: ResultsPageProps) {
   const level = searchParams.level as string;
   const responses: string[] = [];
+  const questionnaireScores: number[] = [];
   
   for (let i = 1; i <= 10; i++) {
     const r = searchParams[`r${i}`] as string;
@@ -20,6 +22,14 @@ export default function ResultsPage({ searchParams }: ResultsPageProps) {
       responses.push(r);
     }
   }
+
+  for (let i = 1; i <= 15; i++) {
+    const q = searchParams[`q${i}`] as string;
+    if (q) {
+      questionnaireScores.push(parseInt(q, 10));
+    }
+  }
+
 
   if (!level || responses.length !== 10) {
     return (
@@ -51,13 +61,17 @@ export default function ResultsPage({ searchParams }: ResultsPageProps) {
           <CardHeader>
             <CardTitle className="flex items-center justify-center gap-3 font-headline text-2xl text-center">
               <Sparkles className="h-7 w-7" />
-              Your Ego Identity Level
+              Your Narrative Ego Identity Level
             </CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-center text-5xl font-bold text-primary">{level}</p>
           </CardContent>
         </Card>
+        
+        {questionnaireScores.length === 15 && (
+            <QuestionnaireResults scores={questionnaireScores} />
+        )}
 
         <Suspense fallback={<FeedbackSkeleton />}>
           <Feedback level={level} userResponses={userResponses} />

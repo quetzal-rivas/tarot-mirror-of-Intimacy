@@ -9,6 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Wand2, LoaderCircle } from 'lucide-react';
 import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 const formSchema = z.object({
   response1: z.string().min(10, { message: "Please elaborate a little more on your reflection." }),
@@ -29,6 +30,8 @@ type ResponseKeys = `response${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10}`;
 
 export function PromptForm({ prompts }: { prompts: string[] }) {
   const [isPending, setIsPending] = useState(false);
+  const searchParams = useSearchParams();
+
   const form = useForm<PromptFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -48,6 +51,11 @@ export function PromptForm({ prompts }: { prompts: string[] }) {
   const onSubmit = async (data: PromptFormValues) => {
     setIsPending(true);
     const formData = new FormData();
+    // Pass along questionnaire answers
+    searchParams.forEach((value, key) => {
+      formData.append(key, value);
+    });
+    // Add prompt responses
     for (const [key, value] of Object.entries(data)) {
       formData.append(key, value);
     }

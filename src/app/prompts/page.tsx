@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { PromptForm } from './PromptForm';
 
 const prompts = [
@@ -13,7 +14,7 @@ const prompts = [
     "✨ Have you ever walked away from a relationship that didn’t align with your values? What gave you the strength to do so?"
 ];
 
-export default function PromptsPage() {
+function PromptsPageContent() {
   return (
     <div className="container mx-auto max-w-3xl px-4 py-12">
       <div className="text-center mb-10">
@@ -23,4 +24,12 @@ export default function PromptsPage() {
       <PromptForm prompts={prompts} />
     </div>
   );
+}
+
+export default function PromptsPage() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <PromptsPageContent />
+        </Suspense>
+    )
 }

@@ -12,11 +12,16 @@ type ResultsPageProps = {
 
 export default function ResultsPage({ searchParams }: ResultsPageProps) {
   const level = searchParams.level as string;
-  const r1 = searchParams.r1 as string;
-  const r2 = searchParams.r2 as string;
-  const r3 = searchParams.r3 as string;
+  const responses: string[] = [];
+  
+  for (let i = 1; i <= 10; i++) {
+    const r = searchParams[`r${i}`] as string;
+    if (r) {
+      responses.push(r);
+    }
+  }
 
-  if (!level || !r1 || !r2 || !r3) {
+  if (!level || responses.length !== 10) {
     return (
       <div className="container mx-auto flex flex-col items-center justify-center text-center py-20">
         <h1 className="font-headline text-4xl text-destructive">Invalid Results</h1>
@@ -30,7 +35,7 @@ export default function ResultsPage({ searchParams }: ResultsPageProps) {
     );
   }
 
-  const userResponses = [r1, r2, r3].join('\n\n');
+  const userResponses = responses.join('\n\n');
 
   return (
     <div className="container mx-auto max-w-4xl px-4 py-12">
@@ -74,7 +79,7 @@ export default function ResultsPage({ searchParams }: ResultsPageProps) {
 async function Feedback({ level, userResponses }: { level: string; userResponses: string }) {
   const [feedback, cue] = await Promise.all([
     providePersonalizedFeedback({ egoIdentityLevel: level, responses: userResponses }),
-    recommendIntimacyCue({ egoIdentityLevel: level, userResponses: userResponses }),
+    recommendIntimacyCue({ egoIdentityLevel: level as 'High' | 'Moderate' | 'Low' | 'Very Low', userResponses: userResponses }),
   ]);
 
   return (

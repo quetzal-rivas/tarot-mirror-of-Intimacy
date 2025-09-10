@@ -8,6 +8,13 @@ const formSchema = z.object({
   response1: z.string().min(10, 'Please provide a more detailed response.'),
   response2: z.string().min(10, 'Please provide a more detailed response.'),
   response3: z.string().min(10, 'Please provide a more detailed response.'),
+  response4: z.string().min(10, 'Please provide a more detailed response.'),
+  response5: z.string().min(10, 'Please provide a more detailed response.'),
+  response6: z.string().min(10, 'Please provide a more detailed response.'),
+  response7: z.string().min(10, 'Please provide a more detailed response.'),
+  response8: z.string().min(10, 'Please provide a more detailed response.'),
+  response9: z.string().min(10, 'Please provide a more detailed response.'),
+  response10: z.string().min(10, 'Please provide a more detailed response.'),
 });
 
 export async function analyzeAndRedirect(formData: FormData) {
@@ -18,10 +25,11 @@ export async function analyzeAndRedirect(formData: FormData) {
 
   const params = new URLSearchParams({
     level: egoIdentityLevel,
-    r1: validatedData.response1,
-    r2: validatedData.response2,
-    r3: validatedData.response3,
   });
+  
+  for (const [key, value] of Object.entries(validatedData)) {
+    params.append(key.replace('response', 'r'), value);
+  }
 
   redirect(`/results?${params.toString()}`);
 }

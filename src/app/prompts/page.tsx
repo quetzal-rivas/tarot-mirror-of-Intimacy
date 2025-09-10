@@ -1,9 +1,16 @@
 import { PromptForm } from './PromptForm';
 
 const prompts = [
-    "Reflect on a moment you felt truly understood by someone. What made that connection feel so strong?",
-    "Describe a time you chose to be vulnerable. What did you learn about yourself or the other person?",
-    "What does a 'safe' relationship feel like to you, and what role do you play in creating that safety?"
+    "🕯️ Describe a time when you realized what kind of partner truly suits you—not just what others expected.",
+    "🛡️ Tell a story about a time you stood up for something you wouldn’t tolerate in a relationship.",
+    "🌒 Have you ever connected with different types of people to learn what feels right in love? What did you discover?",
+    "🔍 Can you describe what you truly want from a romantic relationship—and how you came to know that?",
+    "🌀 Share a moment when you felt emotionally close to someone without losing your sense of self.",
+    "📜 How have your past relationships shaped your sense of self or your views on love?",
+    "💬 Describe a time you expressed your emotional needs in a relationship. How did it go?",
+    "🕊️ Tell me about a relationship you entered—or didn’t enter—not out of fear of being alone, but for your own reasons.",
+    "🌿 What is your relationship with being single? Can you describe a time when you felt whole on your own?",
+    "✨ Have you ever walked away from a relationship that didn’t align with your values? What gave you the strength to do so?"
 ];
 
 export default function PromptsPage() {

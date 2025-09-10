@@ -17,9 +17,10 @@ const domains = [
 ];
 
 const getDomainInterpretation = (score: number): string => {
+    if (score >= 14) return 'Very strong sense of self';
     if (score >= 13) return 'High clarity';
+    if (score >= 11) return 'Developing well';
     if (score >= 9) return 'Moderate, some uncertainty';
-    if (score >= 7) return 'Developing well';
     return 'Low integration across contexts';
 };
 

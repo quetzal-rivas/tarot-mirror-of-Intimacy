@@ -2,10 +2,11 @@ import { providePersonalizedFeedback } from '@/ai/flows/provide-personalized-fee
 import { recommendIntimacyCue } from '@/ai/flows/recommend-intimacy-cue';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Lightbulb, Sparkles, Heart, RefreshCw, BarChart3 } from 'lucide-react';
+import { Lightbulb, Sparkles, Heart, RefreshCw } from 'lucide-react';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import { QuestionnaireResults } from './QuestionnaireResults';
+import { DownloadButton } from './DownloadButton';
 
 type ResultsPageProps = {
   searchParams: { [key: string]: string | string[] | undefined };
@@ -49,42 +50,45 @@ export default function ResultsPage({ searchParams }: ResultsPageProps) {
 
   return (
     <div className="container mx-auto max-w-4xl px-4 py-12">
-      <div className="text-center mb-10">
-        <h1 className="font-headline text-4xl font-bold text-primary">Your Reflection Revealed</h1>
-        <p className="mt-2 text-lg text-muted-foreground">
-          Here are the insights gathered from your journey within.
-        </p>
+      <div id="results-content">
+        <div className="text-center mb-10">
+          <h1 className="font-headline text-4xl font-bold text-primary">Your Reflection Revealed</h1>
+          <p className="mt-2 text-lg text-muted-foreground">
+            Here are the insights gathered from your journey within.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-8">
+          <Card className="bg-gradient-to-br from-primary/20 to-accent/20 border-primary shadow-xl shadow-primary/10">
+            <CardHeader>
+              <CardTitle className="flex items-center justify-center gap-3 font-headline text-2xl text-center">
+                <Sparkles className="h-7 w-7" />
+                Your Narrative Ego Identity Level
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-center text-5xl font-bold text-primary">{level}</p>
+            </CardContent>
+          </Card>
+          
+          {questionnaireScores.length === 15 && (
+              <QuestionnaireResults scores={questionnaireScores} />
+          )}
+
+          <Suspense fallback={<FeedbackSkeleton />}>
+            <Feedback level={level} userResponses={userResponses} />
+          </Suspense>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-8">
-        <Card className="bg-gradient-to-br from-primary/20 to-accent/20 border-primary shadow-xl shadow-primary/10">
-          <CardHeader>
-            <CardTitle className="flex items-center justify-center gap-3 font-headline text-2xl text-center">
-              <Sparkles className="h-7 w-7" />
-              Your Narrative Ego Identity Level
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-center text-5xl font-bold text-primary">{level}</p>
-          </CardContent>
-        </Card>
-        
-        {questionnaireScores.length === 15 && (
-            <QuestionnaireResults scores={questionnaireScores} />
-        )}
-
-        <Suspense fallback={<FeedbackSkeleton />}>
-          <Feedback level={level} userResponses={userResponses} />
-        </Suspense>
-
-        <div className="text-center mt-8">
-            <Button asChild size="lg" className="font-bold text-lg px-8 py-6">
-                <Link href="/">
-                    <RefreshCw className="mr-3 h-6 w-6" />
-                    Reflect Again
-                </Link>
-            </Button>
-        </div>
+      <div className="text-center mt-8 flex flex-col sm:flex-row justify-center gap-4">
+          <Button asChild size="lg" className="font-bold text-lg px-8 py-6">
+              <Link href="/">
+                  <RefreshCw className="mr-3 h-6 w-6" />
+                  Reflect Again
+              </Link>
+          </Button>
+          <DownloadButton />
       </div>
     </div>
   );
@@ -105,8 +109,10 @@ async function Feedback({ level, userResponses }: { level: string; userResponses
         <p>{feedback.intimacyReadiness}</p>
       </ResultCard>
       <ResultCard icon={<Sparkles />} title="Your Recommended Intimacy Cue">
-        <p className="font-semibold">{feedback.optimalCue}</p>
-        <p className="mt-4 italic">{cue.intimacyCue}</p>
+        <div className="text-foreground/90">
+            <p className="font-semibold">{feedback.optimalCue}</p>
+            <p className="mt-4 italic">{cue.intimacyCue}</p>
+        </div>
       </ResultCard>
     </>
   );

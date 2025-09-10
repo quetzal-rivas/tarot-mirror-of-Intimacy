@@ -61,7 +61,7 @@ export function PromptForm({ prompts }: { prompts: string[] }) {
         return (
             <Card key={index} className="bg-card/50 backdrop-blur-sm">
             <CardHeader>
-                <CardTitle className="text-lg font-normal text-primary-foreground">
+                <CardTitle className="text-lg font-normal text-foreground">
                 {`Question ${index + 1}: ${prompt}`}
                 </CardTitle>
             </CardHeader>

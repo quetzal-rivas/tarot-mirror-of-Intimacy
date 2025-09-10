@@ -16,12 +16,12 @@ export default function Home() {
         </div>
 
         <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
-          Gaze into the reflection of your heart. Answer three questions to unveil your capacity for connection and discover the path to deeper intimacy.
+          Gaze into the reflection of your heart. Answer the questions to unveil your capacity for connection and discover the path to deeper intimacy.
         </p>
 
         <div className="mt-12">
             <Button asChild size="lg" className="font-bold text-lg px-8 py-6 shadow-lg shadow-primary/20 transition-transform duration-300 hover:scale-105">
-                <Link href="/prompts">
+                <Link href="/questionnaire">
                     <Wand2 className="mr-3 h-6 w-6" />
                     Begin Your Journey
                 </Link>

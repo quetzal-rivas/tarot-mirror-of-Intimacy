@@ -92,7 +92,7 @@ async function Feedback({ level, userResponses }: { level: string; userResponses
       </ResultCard>
       <ResultCard icon={<Sparkles />} title="Your Recommended Intimacy Cue">
         <p className="font-semibold text-primary-foreground/90">{feedback.optimalCue}</p>
-        <p className="mt-4 italic text-muted-foreground">{cue.intimacyCue}</p>
+        <p className="mt-4 italic text-foreground/80">{cue.intimacyCue}</p>
       </ResultCard>
     </>
   );

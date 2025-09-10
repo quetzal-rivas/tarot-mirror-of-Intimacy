@@ -17,11 +17,11 @@ const domains = [
 ];
 
 const getDomainInterpretation = (score: number): string => {
-    if (score >= 14) return 'Very strong sense of self';
     if (score >= 13) return 'High clarity';
     if (score >= 11) return 'Developing well';
     if (score >= 9) return 'Moderate, some uncertainty';
-    return 'Low integration across contexts';
+    if (score >= 7) return 'Low integration across contexts';
+    return 'Very low integration';
 };
 
 const getTotalLevel = (totalScore: number): string => {
@@ -29,6 +29,13 @@ const getTotalLevel = (totalScore: number): string => {
     if (totalScore >= 50) return 'Moderate';
     if (totalScore >= 35) return 'Low';
     return 'Very Low';
+};
+
+const getTotalLevelDescription = (totalScore: number): string => {
+    if (totalScore >= 65) return 'Strong ego identity: consistent, confident, and self-directed';
+    if (totalScore >= 50) return 'Developing ego identity: some areas are clear, others uncertain';
+    if (totalScore >= 35) return 'Fragile or diffuse ego identity: unclear values, boundaries, or goals';
+    return 'Significant confusion or external dependency; likely struggling with identity formation';
 };
 
 export function QuestionnaireResults({ scores }: QuestionnaireResultsProps) {
@@ -43,6 +50,7 @@ export function QuestionnaireResults({ scores }: QuestionnaireResultsProps) {
 
   const totalScore = scores.reduce((acc, score) => acc + score, 0);
   const overallLevel = getTotalLevel(totalScore);
+  const overallDescription = getTotalLevelDescription(totalScore);
 
   return (
     <>
@@ -55,6 +63,7 @@ export function QuestionnaireResults({ scores }: QuestionnaireResultsProps) {
           </CardHeader>
           <CardContent className="text-center">
             <p className="text-5xl font-bold text-primary">{overallLevel}</p>
+            <p className="text-muted-foreground mt-2 max-w-md mx-auto">{overallDescription}</p>
             <p className="text-muted-foreground mt-2">(Total Score: {totalScore} out of 75)</p>
           </CardContent>
         </Card>

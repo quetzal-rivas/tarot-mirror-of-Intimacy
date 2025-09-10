@@ -10,7 +10,7 @@ export default function Home() {
         <div className="mb-8 flex items-center gap-4">
             <MoonStar className="h-12 w-12 text-primary" />
             <h1 className="font-headline text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary via-foreground to-primary md:text-6xl">
-              Mirror of Intimacy
+              Tarot Mistical Insight
             </h1>
             <Sparkles className="h-12 w-12 text-primary" />
         </div>

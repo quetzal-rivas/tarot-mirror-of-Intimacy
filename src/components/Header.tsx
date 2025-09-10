@@ -8,7 +8,7 @@ export function Header() {
         <Link href="/" className="flex items-center gap-2 group">
           <MoonStar className="h-6 w-6 text-primary transition-transform duration-300 group-hover:rotate-12" />
           <span className="font-headline text-2xl font-bold">
-            Mirror of Intimacy
+            Tarot Mistical Insight
           </span>
         </Link>
       </div>

@@ -6,7 +6,7 @@ import { Footer } from '@/components/Footer';
 import Starfield from '@/components/Starfield';
 
 export const metadata: Metadata = {
-  title: 'Mirror of Intimacy',
+  title: 'Tarot Mistical Insight',
   description: 'Discover your path to deeper connection.',
 };
 

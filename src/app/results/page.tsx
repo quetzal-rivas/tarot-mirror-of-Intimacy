@@ -105,8 +105,8 @@ async function Feedback({ level, userResponses }: { level: string; userResponses
         <p>{feedback.intimacyReadiness}</p>
       </ResultCard>
       <ResultCard icon={<Sparkles />} title="Your Recommended Intimacy Cue">
-        <p className="font-semibold text-primary-foreground/90">{feedback.optimalCue}</p>
-        <p className="mt-4 italic text-foreground/80">{cue.intimacyCue}</p>
+        <p className="font-semibold">{feedback.optimalCue}</p>
+        <p className="mt-4 italic">{cue.intimacyCue}</p>
       </ResultCard>
     </>
   );
@@ -121,7 +121,7 @@ function ResultCard({ icon, title, children }: { icon: React.ReactNode; title: s
                     {title}
                 </CardTitle>
             </CardHeader>
-            <CardContent className="text-muted-foreground space-y-4 text-base">
+            <CardContent className="text-foreground/90 space-y-4 text-base">
                 {children}
             </CardContent>
         </Card>
